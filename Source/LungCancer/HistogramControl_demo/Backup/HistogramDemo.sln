@@ -1,0 +1,21 @@
+Microsoft Visual Studio Solution File, Format Version 8.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HistogramControl", "HistogramaDemo\HistogramControl.csproj", "{174F9901-9B7E-4D4F-9F64-7FC8E8128044}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfiguration) = preSolution
+		Debug = Debug
+		Release = Release
+	EndGlobalSection
+	GlobalSection(ProjectConfiguration) = postSolution
+		{174F9901-9B7E-4D4F-9F64-7FC8E8128044}.Debug.ActiveCfg = Debug|.NET
+		{174F9901-9B7E-4D4F-9F64-7FC8E8128044}.Debug.Build.0 = Debug|.NET
+		{174F9901-9B7E-4D4F-9F64-7FC8E8128044}.Release.ActiveCfg = Release|.NET
+		{174F9901-9B7E-4D4F-9F64-7FC8E8128044}.Release.Build.0 = Release|.NET
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+	EndGlobalSection
+	GlobalSection(ExtensibilityAddIns) = postSolution
+	EndGlobalSection
+EndGlobal
