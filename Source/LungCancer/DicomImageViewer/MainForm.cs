@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Windows.Forms;
 using System.Linq;
+using System.Windows.Forms;
+using System.Collections;
 
 // Program to view simple DICOM images.
 // Written by Amarnath S, Mahesh Reddy S, Bangalore, India, April 2009.
@@ -39,6 +40,8 @@ namespace DicomImageViewer
 
     /// o Read a sequence of images. 
     /// </summary>
+    /// 
+    
     public partial class MainForm : Form
     {
         DicomDecoder dd;
@@ -84,7 +87,7 @@ namespace DicomImageViewer
                 }
                 ofd.Dispose();
             }
-            
+
         }
 
         private void ReadAndDisplayDicomFile(string fileName, string fileNameOnly)
@@ -238,7 +241,7 @@ namespace DicomImageViewer
                         winWidth, winCentre, samplesPerPixel, true, this);
                 }
             }
-            else 
+            else
             {
                 if (typeOfDicomFile == TypeOfDicomFile.DicomUnknownTransferSyntax)
                 {
@@ -247,7 +250,7 @@ namespace DicomImageViewer
                 }
                 else
                 {
-                    MessageBox.Show("Sorry, I can't open this file. " + 
+                    MessageBox.Show("Sorry, I can't open this file. " +
                         "This file does not appear to contain a DICOM image.",
                         "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
@@ -279,9 +282,9 @@ namespace DicomImageViewer
                 bnSave.Enabled = false;
                 bnTags.Enabled = false;
                 bnResetWL.Enabled = false;
-              
+
             }
-          
+
         }
 
         private void bnTags_Click(object sender, EventArgs e)
@@ -297,7 +300,7 @@ namespace DicomImageViewer
                 imagePanelControl.Invalidate();
             }
             else
-                MessageBox.Show("Load a DICOM file before viewing tags!", "Information", 
+                MessageBox.Show("Load a DICOM file before viewing tags!", "Information",
                     MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
@@ -312,7 +315,7 @@ namespace DicomImageViewer
                     imagePanelControl.SaveImage(sfd.FileName);
             }
             else
-                MessageBox.Show("Load a DICOM file before saving!", "Information", 
+                MessageBox.Show("Load a DICOM file before saving!", "Information",
                     MessageBoxButtons.OK, MessageBoxIcon.Information);
 
             imagePanelControl.Invalidate();
@@ -353,7 +356,7 @@ namespace DicomImageViewer
                         winWidth, winCentre, false, this);
             }
             else
-                MessageBox.Show("Load a DICOM file before resetting!", "Information", 
+                MessageBox.Show("Load a DICOM file before resetting!", "Information",
                     MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
@@ -381,37 +384,70 @@ namespace DicomImageViewer
 
         private void label9_Click(object sender, EventArgs e)
         {
-                    }
+        }
 
         private void btnBitMap_Click(object sender, EventArgs e)
         {
-         
-          //  int grayscale = (orgcol.R + orgcol.G + orgcol.B) / 3;
+
+            //  int grayscale = (orgcol.R + orgcol.G + orgcol.B) / 3;
+
+            Bitmap h = MyHistogram.CreateHistogram(imagePanelControl.getBitMap(), false);
+            pictureBox1.Image = h;
+        }
+        public void LanCanBon(Bitmap bmp)
+        {
+
+        }
+      
+       public
+           bool isStatus(int x, int y, List<Point> lst)
+        {
+            for (int t = 0; t < lst.Count; t++)
+            {
+                if (lst[t].X == x && lst[t].Y == y)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+        public void ToLoang( Bitmap temp,int x,int y)
+        {
+           
+        }
+        public void BoBien()
+        {
+            Bitmap bmpOStu = new Bitmap(pcOstu.Image);
             
-             Bitmap h = MyHistogram.CreateHistogram(  imagePanelControl.getBitMap(), false );
-             pictureBox1.Image = h;
+           
+          
+          
+            ToLoang( bmpOStu, 1, 1);
+            
+            pcBoNen.Image = bmpOStu;
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-             Otsu ot = new Otsu();
-        Bitmap org = imagePanelControl.getBitMap();
-        Bitmap temp = (Bitmap)org.Clone();
+            Otsu ot = new Otsu();
+            Bitmap org = imagePanelControl.getBitMap();
+            Bitmap temp = (Bitmap)org.Clone();
             ot.Convert2GrayScaleFast(temp);
 
             int otsuThreshold = ot.getOtsuThreshold((Bitmap)temp);
             ot.threshold(temp, otsuThreshold);
- //           textBox1.Text = otsuThreshold.ToString();
+            //           textBox1.Text = otsuThreshold.ToString();
             pcOstu.Image = temp;
+
             textBox3.Text = otsuThreshold.ToString();
             bt_Eff_Click(sender, e);
             bt_denoise_Click(sender, e);
             btnBitMap_Click(sender, e);
-                }
+        }
 
         private void bt_Eff_Click(object sender, EventArgs e)
         {
-            Bitmap org =new Bitmap( pcOstu.Image);
+            Bitmap org = new Bitmap(pcOstu.Image);
             Bitmap temp = (Bitmap)org.Clone();
             for (int i = 0; i < temp.Width; i++)
             {
@@ -451,8 +487,6 @@ namespace DicomImageViewer
                             if (temp.GetPixel(i + 1, j + 1).R == 0)
                                 count++;
                             if (count >= 3)
-
-
                             {
                                 temp.SetPixel(i, j, Color.Black);
                             }
@@ -476,7 +510,136 @@ namespace DicomImageViewer
                 }
             }
             pcDenose.Image = temp;
-            
+
+        }
+        public int getTrangDau(Bitmap bmp,int k)
+        { 
+            for(int i =0;i<bmp.Width;i++)
+                if (bmp.GetPixel(i, k).R == 255)
+                {
+                    return i;
+                }
+            return -1;
+        }
+        public int getTrangCuoi(Bitmap bmp, int k)
+        {
+            for (int i = bmp.Width - 1;i>=0 ; i--)
+                if (bmp.GetPixel(i, k).R == 255)
+                {
+                    return i;
+                }
+            return -1;
+        }
+        public void BoNenQuyet(Bitmap btm)
+        {
+            List<Point> lst = new List<Point>();
+            lst.Add(new Point(0, 0));
+            while (lst.Count != 0)
+            {
+                Point p = lst[0];
+                btm.SetPixel(p.X, p.Y, Color.White);
+                if (p.X + 1 >= 0 && p.X + 1 < btm.Width)
+                {
+                    if (btm.GetPixel(p.X + 1, p.Y).R == 0)
+                    { 
+                        lst.Add (new Point(p.X+1,p.Y));
+                    }
+                }
+                if (p.X - 1 >= 0 && p.X - 1 < btm.Width)
+                {
+                    if (btm.GetPixel(p.X - 1, p.Y).R == 0)
+                    {
+                        lst.Add(new Point(p.X - 1, p.Y));
+                    }
+                }
+                if (p.Y + 1 >= 0 && p.Y + 1 < btm.Height)
+                {
+                    if (btm.GetPixel(p.X , p.Y+1).R == 0)
+                    {
+                        lst.Add(new Point(p.X , p.Y+1));
+                    }
+                }
+                if (p.Y - 1 >= 0 && p.Y - 1 < btm.Width)
+                {
+                    if (btm.GetPixel(p.X, p.Y-1).R == 0)
+                    {
+                        lst.Add(new Point(p.X , p.Y-1));
+                    }
+                }
+
+            }
+        }
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            Bitmap org = new Bitmap(pcOstu.Image);
+            List<Point> lst = new List<Point>();
+            lst.Add(new Point(0, 0));
+            while (lst.Count != 0)
+            {
+                Point p = lst[0];
+                lst.RemoveAt(0);
+                org.SetPixel(p.X, p.Y, Color.White);
+                if (p.X + 1 >= 0 && p.X + 1 < org.Width)
+                {
+                    if (org.GetPixel(p.X + 1, p.Y).R == 0)
+                    {
+                        lst.Add(new Point(p.X + 1, p.Y));
+                        org.SetPixel(p.X+1, p.Y, Color.White);
+                    }
+                }
+                if (p.X - 1 >= 0 && p.X - 1 < org.Width)
+                {
+                    if (org.GetPixel(p.X - 1, p.Y).R == 0)
+                    {
+                        lst.Add(new Point(p.X - 1, p.Y));
+                        org.SetPixel(p.X-1, p.Y, Color.White);
+                    }
+                }
+                if (p.Y + 1 >= 0 && p.Y + 1 < org.Height)
+                {
+                    if (org.GetPixel(p.X, p.Y + 1).R == 0)
+                    {
+                        lst.Add(new Point(p.X, p.Y + 1));
+                        org.SetPixel(p.X, p.Y+1, Color.White);
+                    }
+                }
+                if (p.Y - 1 >= 0 && p.Y - 1 < org.Width)
+                {
+                    if (org.GetPixel(p.X, p.Y - 1).R == 0)
+                    {
+                        lst.Add(new Point(p.X, p.Y - 1));
+                        org.SetPixel(p.X, p.Y-1, Color.White);
+                    }
+                }
+
+            }
+            //su dụng kỹ thuật dòng quét 
+            //for (int i = 0; i < org.Height; i++)
+            //{
+            //    int Trangdau = getTrangDau(org, i);
+            //    int TrangCuoi = getTrangCuoi(org, i);
+            //    if (Trangdau == -1)
+            //    {
+            //        for (int j = 0; j < org.Width; j++)
+            //            org.SetPixel(j, i, Color.White);
+            //    }
+            //    else
+            //    {
+            //        for (int j = 0; j < Trangdau; j++)
+            //        {
+            //            org.SetPixel(j, i, Color.White);
+            //        }
+            //    }
+            //    if (TrangCuoi != -1)
+            //    {
+            //        for (int j = TrangCuoi; j < org.Width ; j++)
+            //        {
+            //            org.SetPixel(j, i, Color.White);
+            //        }
+            //    }
+            //}
+            pcBoNen.Image = org;
+
         }
     }
 }
