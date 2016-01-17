@@ -48,14 +48,20 @@
             this.pcDenose = new System.Windows.Forms.PictureBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.imagePanelControl = new DicomImageViewer.ImagePanelControl();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.tabPage5 = new System.Windows.Forms.TabPage();
             this.pcBoNen = new System.Windows.Forms.PictureBox();
+            this.tabPage6 = new System.Windows.Forms.TabPage();
+            this.denoiseFromStep3 = new System.Windows.Forms.PictureBox();
+            this.tabPage7 = new System.Windows.Forms.TabPage();
+            this.blobsBrowser1 = new DicomImageViewer.BlobsBrowser();
             this.button1 = new System.Windows.Forms.Button();
-            this.imagePanelControl = new DicomImageViewer.ImagePanelControl();
             this.windowLevelControl = new DicomImageViewer.WindowLevelGraphControl();
+            this.tabPage8 = new System.Windows.Forms.TabPage();
+            this.pc_class = new System.Windows.Forms.PictureBox();
             this.gbViewSettings.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pcOstu)).BeginInit();
@@ -68,6 +74,11 @@
             this.tabPage4.SuspendLayout();
             this.tabPage5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pcBoNen)).BeginInit();
+            this.tabPage6.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.denoiseFromStep3)).BeginInit();
+            this.tabPage7.SuspendLayout();
+            this.tabPage8.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pc_class)).BeginInit();
             this.SuspendLayout();
             // 
             // bnOpen
@@ -256,6 +267,9 @@
             this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Controls.Add(this.tabPage4);
             this.tabControl1.Controls.Add(this.tabPage5);
+            this.tabControl1.Controls.Add(this.tabPage6);
+            this.tabControl1.Controls.Add(this.tabPage7);
+            this.tabControl1.Controls.Add(this.tabPage8);
             this.tabControl1.Location = new System.Drawing.Point(202, 3);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
@@ -273,6 +287,17 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Step 1";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // imagePanelControl
+            // 
+            this.imagePanelControl.AutoValidate = System.Windows.Forms.AutoValidate.Disable;
+            this.imagePanelControl.BackColor = System.Drawing.SystemColors.Control;
+            this.imagePanelControl.CausesValidation = false;
+            this.imagePanelControl.Location = new System.Drawing.Point(6, 6);
+            this.imagePanelControl.Name = "imagePanelControl";
+            this.imagePanelControl.Size = new System.Drawing.Size(644, 707);
+            this.imagePanelControl.TabIndex = 1;
+            this.imagePanelControl.TabStop = false;
             // 
             // tabPage2
             // 
@@ -327,6 +352,47 @@
             this.pcBoNen.TabIndex = 17;
             this.pcBoNen.TabStop = false;
             // 
+            // tabPage6
+            // 
+            this.tabPage6.Controls.Add(this.denoiseFromStep3);
+            this.tabPage6.Location = new System.Drawing.Point(4, 22);
+            this.tabPage6.Name = "tabPage6";
+            this.tabPage6.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage6.Size = new System.Drawing.Size(1042, 719);
+            this.tabPage6.TabIndex = 5;
+            this.tabPage6.Text = "tabPage6";
+            this.tabPage6.UseVisualStyleBackColor = true;
+            // 
+            // denoiseFromStep3
+            // 
+            this.denoiseFromStep3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.denoiseFromStep3.Location = new System.Drawing.Point(3, 3);
+            this.denoiseFromStep3.Name = "denoiseFromStep3";
+            this.denoiseFromStep3.Size = new System.Drawing.Size(1036, 713);
+            this.denoiseFromStep3.TabIndex = 18;
+            this.denoiseFromStep3.TabStop = false;
+            // 
+            // tabPage7
+            // 
+            this.tabPage7.Controls.Add(this.blobsBrowser1);
+            this.tabPage7.Location = new System.Drawing.Point(4, 22);
+            this.tabPage7.Name = "tabPage7";
+            this.tabPage7.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage7.Size = new System.Drawing.Size(1042, 719);
+            this.tabPage7.TabIndex = 6;
+            this.tabPage7.Text = "tabPage7";
+            this.tabPage7.UseVisualStyleBackColor = true;
+            // 
+            // blobsBrowser1
+            // 
+            this.blobsBrowser1.Highlighting = DicomImageViewer.BlobsBrowser.HightlightType.Quadrilateral;
+            this.blobsBrowser1.Location = new System.Drawing.Point(360, 238);
+            this.blobsBrowser1.Name = "blobsBrowser1";
+            this.blobsBrowser1.ShowRectangleAroundSelection = false;
+            this.blobsBrowser1.Size = new System.Drawing.Size(322, 242);
+            this.blobsBrowser1.TabIndex = 0;
+            this.blobsBrowser1.Text = "blobsBrowser1";
+            // 
             // button1
             // 
             this.button1.Location = new System.Drawing.Point(121, 541);
@@ -337,23 +403,32 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click_1);
             // 
-            // imagePanelControl
-            // 
-            this.imagePanelControl.AutoValidate = System.Windows.Forms.AutoValidate.Disable;
-            this.imagePanelControl.BackColor = System.Drawing.SystemColors.Control;
-            this.imagePanelControl.CausesValidation = false;
-            this.imagePanelControl.Location = new System.Drawing.Point(6, 6);
-            this.imagePanelControl.Name = "imagePanelControl";
-            this.imagePanelControl.Size = new System.Drawing.Size(644, 707);
-            this.imagePanelControl.TabIndex = 1;
-            this.imagePanelControl.TabStop = false;
-            // 
             // windowLevelControl
             // 
             this.windowLevelControl.Location = new System.Drawing.Point(10, 300);
             this.windowLevelControl.Name = "windowLevelControl";
             this.windowLevelControl.Size = new System.Drawing.Size(165, 235);
             this.windowLevelControl.TabIndex = 10;
+            // 
+            // tabPage8
+            // 
+            this.tabPage8.Controls.Add(this.pc_class);
+            this.tabPage8.Location = new System.Drawing.Point(4, 22);
+            this.tabPage8.Name = "tabPage8";
+            this.tabPage8.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage8.Size = new System.Drawing.Size(1042, 719);
+            this.tabPage8.TabIndex = 7;
+            this.tabPage8.Text = "tabPage8";
+            this.tabPage8.UseVisualStyleBackColor = true;
+            // 
+            // pc_class
+            // 
+            this.pc_class.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pc_class.Location = new System.Drawing.Point(3, 3);
+            this.pc_class.Name = "pc_class";
+            this.pc_class.Size = new System.Drawing.Size(1036, 713);
+            this.pc_class.TabIndex = 19;
+            this.pc_class.TabStop = false;
             // 
             // MainForm
             // 
@@ -395,6 +470,11 @@
             this.tabPage4.ResumeLayout(false);
             this.tabPage5.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pcBoNen)).EndInit();
+            this.tabPage6.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.denoiseFromStep3)).EndInit();
+            this.tabPage7.ResumeLayout(false);
+            this.tabPage8.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pc_class)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -430,6 +510,12 @@
         private System.Windows.Forms.TabPage tabPage5;
         private System.Windows.Forms.PictureBox pcBoNen;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.TabPage tabPage6;
+        private System.Windows.Forms.PictureBox denoiseFromStep3;
+        private System.Windows.Forms.TabPage tabPage7;
+        private BlobsBrowser blobsBrowser1;
+        private System.Windows.Forms.TabPage tabPage8;
+        private System.Windows.Forms.PictureBox pc_class;
     }
 }
 

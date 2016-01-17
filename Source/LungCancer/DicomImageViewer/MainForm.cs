@@ -4,7 +4,8 @@ using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using System.Collections;
-
+using AForge.Imaging;
+using AForge.Imaging.Filters;
 // Program to view simple DICOM images.
 // Written by Amarnath S, Mahesh Reddy S, Bangalore, India, April 2009.
 // Updated along with Harsha T, April 2010 to include Window/Level
@@ -58,7 +59,137 @@ namespace DicomImageViewer
         bool signedImage;
         int maxPixelValue;    // Updated July 2012
         int minPixelValue;
+        List<Point> edge=new List<Point>();
+        int [,]arr= new int[2, 2];
 
+
+
+        public void resetArray()
+        {
+            for (int i=0; i<2;i++)
+            {
+                for(int j=0;j<2;j++)
+                {
+                }
+                  //  arr[i,j] = 0;
+            }
+        }
+        public bool get_checkpoint_edge(int x,int y)
+        {
+            for (int i=0; i<edge.Count;i++)
+            {
+                if(edge[i].X==x&& edge[i].Y==y)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        private void ProcessImage(Bitmap image)
+        {
+            int foundBlobsCount = blobsBrowser1.SetImage(image);
+
+           //    blobsCountLabel.Text = string.Format("Found blobs' count: {0}", foundBlobsCount);
+        //    propertyGrid.SelectedObject = null;
+        }
+        public void get_edge()
+
+        {
+
+            Bitmap org = new Bitmap(denoiseFromStep3.Image);
+            // Bitmap  temp =(Bitmap) imagePanelControl.getBitMap().Clone();
+            //   Bitmap gsimage = Grayscale.CommonAlgorithms.BT709.Apply(temp);
+            //SobelEdgeDetector filter = new SobelEdgeDetector();
+
+            // filter.ApplyInPlace(org);
+            ProcessImage(org);
+
+
+    //        for(int i=1;i<temp.Width-1;i++)
+    //        {
+    //            for (int j = 1; j < temp.Height - 1; j++)
+    //            {
+    //                //XET DIEM DEN DAU TIEN
+    //                /*
+    //                00x
+    //                011
+    //                x1x
+    //*/
+    //                try
+    //                {
+    //                    //XET DIEM DEN DAU TIEN
+    //                    /*
+    //                    00x
+    //                    011
+    //                    x1x
+    //    */
+    //                    if (i + 1 < temp.Width && i - 1 >= 0 && j - 1 >= 0 && j + 1 < temp.Height)
+    //                    {
+    //                        if (temp.GetPixel(i, j).R == 0 && get_checkpoint_edge(i, j) == false && temp.GetPixel(i - 1, j).R == 255 && temp.GetPixel(i - 1, j - 1).R == 255
+    //                            && temp.GetPixel(i, j + 1).R == 0 && temp.GetPixel(i + 1, j).R == 0 && temp.GetPixel(i, j - 1).R == 255)
+
+            //                        {
+            //                            //arr[1, 1] = -1;
+            //                            edge.Add(new Point(i, j));
+            //                        }
+            //                        //XET DIEM DEN DAU TIEN
+            //                        /*
+            //                        x00
+            //                        110
+            //                        x1x
+            //        */
+            //                        if (temp.GetPixel(i, j).R == 0 && get_checkpoint_edge(i, j) == false
+            //                            && temp.GetPixel(i - 1, j).R == 0 && temp.GetPixel(i + 1, j + 1).R == 255
+            //                            && temp.GetPixel(i, j + 1).R == 0 && temp.GetPixel(i + 1, j).R == 255
+            //                            && temp.GetPixel(i, j - 1).R == 255)
+
+            //                        {
+            //                            //arr[1, 1] = -1;
+            //                            edge.Add(new Point(i, j));
+            //                        }
+            //                        /*
+            //                       x1x
+            //                       110
+            //                       x00
+            //       */
+            //                        if (temp.GetPixel(i, j).R == 0 && get_checkpoint_edge(i, j) == false
+            //                           && temp.GetPixel(i, j - 1).R == 0 && temp.GetPixel(i - 1, j).R == 0
+            //                           && temp.GetPixel(i + 1, j).R == 255 && temp.GetPixel(i, j + 1).R == 255
+            //                           && temp.GetPixel(i + 1, j + 1).R == 255)
+
+            //                        {
+            //                            //arr[1, 1] = -1;
+            //                            edge.Add(new Point(i, j));
+            //                        }
+            //                        /*
+            //                       x1x
+            //                       011
+            //                       00x
+            //       */
+            //                        if (temp.GetPixel(i, j).R == 0 && get_checkpoint_edge(i, j) == false
+            //                           && temp.GetPixel(i, j - 1).R == 0 && temp.GetPixel(i - 1, j).R == 255
+            //                           && temp.GetPixel(i + 1, j).R == 255 && temp.GetPixel(i - 1, j + 1).R == 255
+            //                           && temp.GetPixel(i, j + 1).R == 255)
+            //                        {
+            //                            //arr[1, 1] = -1;
+            //                            edge.Add(new Point(i, j));
+            //                        }
+            //                    }
+            //                    //XET DIEM DEN TIEP THEO
+
+            //                }
+            //                catch (Exception ex) { MessageBox.Show("---->" + i); }
+
+            //                }
+
+            //        }
+            //for(int i=0;i<edge.Count();i++)
+            //{
+            //    temp.SetPixel(edge[i].X, edge[i].Y, Color.Red);
+            //}
+         //   edge_from.Image = org;
+        }
         public MainForm()
         {
             InitializeComponent();
@@ -569,6 +700,54 @@ namespace DicomImageViewer
 
             }
         }
+        public void denoise_step3()
+        {
+            Bitmap temp = new Bitmap(pcBoNen.Image);
+
+            {
+                for (int i = 1; i < temp.Width - 1; i++)
+                {
+
+                    for (int j = 1; j < temp.Height - 1; j++)
+                    {
+                        if (temp.GetPixel(i, j).R == 255)
+                        {
+                            int count = 0;
+                            if (temp.GetPixel(i - 1, j).R == 0)
+                                count++;
+                            if (temp.GetPixel(i, j + 1).R == 0)
+                                count++;
+                            if (temp.GetPixel(i - 1, j - 1).R == 0)
+                                count++;
+                            if (temp.GetPixel(i + 1, j + 1).R == 0)
+                                count++;
+                            if (count >= 3)
+                            {
+                                temp.SetPixel(i, j, Color.Black);
+                            }
+
+                        }
+                        else
+                        {
+                            int cout = 0;
+                            if (temp.GetPixel(i - 1, j).R == 255)
+                                cout++;
+                            if (temp.GetPixel(i, j + 1).R == 255)
+                                cout++;
+                            if (temp.GetPixel(i - 1, j - 1).R == 255)
+                                cout++;
+                            if (temp.GetPixel(i + 1, j + 1).R == 255)
+                                cout++;
+                            if (cout >= 3)
+                                temp.SetPixel(i, j, Color.White);
+                        }
+                    }
+                }
+            }
+            denoiseFromStep3.Image = temp;
+        }
+
+
         private void button1_Click_1(object sender, EventArgs e)
         {
             Bitmap org = new Bitmap(pcOstu.Image);
@@ -613,33 +792,61 @@ namespace DicomImageViewer
                 }
 
             }
-            //su dụng kỹ thuật dòng quét 
-            //for (int i = 0; i < org.Height; i++)
-            //{
-            //    int Trangdau = getTrangDau(org, i);
-            //    int TrangCuoi = getTrangCuoi(org, i);
-            //    if (Trangdau == -1)
-            //    {
-            //        for (int j = 0; j < org.Width; j++)
-            //            org.SetPixel(j, i, Color.White);
-            //    }
-            //    else
-            //    {
-            //        for (int j = 0; j < Trangdau; j++)
-            //        {
-            //            org.SetPixel(j, i, Color.White);
-            //        }
-            //    }
-            //    if (TrangCuoi != -1)
-            //    {
-            //        for (int j = TrangCuoi; j < org.Width ; j++)
-            //        {
-            //            org.SetPixel(j, i, Color.White);
-            //        }
-            //    }
-            //}
+          
             pcBoNen.Image = org;
+            denoise_step3();
+            get_edge();
+            classter();
+        }
 
+        public  void classter()
+        {
+            Bitmap org = new Bitmap(denoiseFromStep3.Image);
+            List<Point> lst = new List<Point>();
+            lst.Add(new Point(0, 0));
+            while (lst.Count != 0)
+            {
+                Point p = lst[0];
+                lst.RemoveAt(0);
+                org.SetPixel(p.X, p.Y, Color.LightBlue);
+                if (p.X + 1 >= 0 && p.X + 1 < org.Width)
+                {
+                    if (org.GetPixel(p.X + 1, p.Y).R == 255)
+                    {
+                        lst.Add(new Point(p.X + 1, p.Y));
+                        org.SetPixel(p.X + 1, p.Y, Color.LightBlue);
+                    }
+                }
+                if (p.X - 1 >= 0 && p.X - 1 < org.Width)
+                {
+                    if (org.GetPixel(p.X - 1, p.Y).R == 255)
+                    {
+                        lst.Add(new Point(p.X - 1, p.Y));
+                        org.SetPixel(p.X - 1, p.Y, Color.LightBlue);
+                    }
+                }
+                if (p.Y + 1 >= 0 && p.Y + 1 < org.Height)
+                {
+                    if (org.GetPixel(p.X, p.Y + 1).R == 255)
+                    {
+                        lst.Add(new Point(p.X, p.Y + 1));
+                        org.SetPixel(p.X, p.Y + 1, Color.LightBlue);
+                    }
+                }
+                if (p.Y - 1 >= 0 && p.Y - 1 < org.Width)
+                {
+                    if (org.GetPixel(p.X, p.Y - 1).R == 255)
+                    {
+                        lst.Add(new Point(p.X, p.Y - 1));
+                        org.SetPixel(p.X, p.Y - 1, Color.LightBlue);
+                    }
+                }
+
+            }
+
+            pc_class.Image = org;
+            
+            //get_edge();
         }
     }
 }
