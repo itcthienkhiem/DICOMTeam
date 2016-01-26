@@ -6,6 +6,7 @@ using System.Windows.Forms;
 using System.Collections;
 using AForge.Imaging;
 using AForge.Imaging.Filters;
+using System.Data.OleDb;
 // Program to view simple DICOM images.
 // Written by Amarnath S, Mahesh Reddy S, Bangalore, India, April 2009.
 // Updated along with Harsha T, April 2010 to include Window/Level
@@ -42,7 +43,7 @@ namespace DicomImageViewer
     /// o Read a sequence of images. 
     /// </summary>
     /// 
-    
+
     public partial class MainForm : Form
     {
         DicomDecoder dd;
@@ -59,26 +60,27 @@ namespace DicomImageViewer
         bool signedImage;
         int maxPixelValue;    // Updated July 2012
         int minPixelValue;
-        List<Point> edge=new List<Point>();
-        int [,]arr= new int[2, 2];
+        List<Point> edge = new List<Point>();
+        int[,] arr = new int[2, 2];
+
 
 
 
         public void resetArray()
         {
-            for (int i=0; i<2;i++)
+            for (int i = 0; i < 2; i++)
             {
-                for(int j=0;j<2;j++)
+                for (int j = 0; j < 2; j++)
                 {
                 }
-                  //  arr[i,j] = 0;
+                //  arr[i,j] = 0;
             }
         }
-        public bool get_checkpoint_edge(int x,int y)
+        public bool get_checkpoint_edge(int x, int y)
         {
-            for (int i=0; i<edge.Count;i++)
+            for (int i = 0; i < edge.Count; i++)
             {
-                if(edge[i].X==x&& edge[i].Y==y)
+                if (edge[i].X == x && edge[i].Y == y)
                 {
                     return true;
                 }
@@ -90,8 +92,8 @@ namespace DicomImageViewer
         {
             int foundBlobsCount = blobsBrowser1.SetImage(image);
 
-           //    blobsCountLabel.Text = string.Format("Found blobs' count: {0}", foundBlobsCount);
-        //    propertyGrid.SelectedObject = null;
+            //    blobsCountLabel.Text = string.Format("Found blobs' count: {0}", foundBlobsCount);
+            //    propertyGrid.SelectedObject = null;
         }
         public void get_edge()
 
@@ -106,28 +108,28 @@ namespace DicomImageViewer
             ProcessImage(org);
 
 
-    //        for(int i=1;i<temp.Width-1;i++)
-    //        {
-    //            for (int j = 1; j < temp.Height - 1; j++)
-    //            {
-    //                //XET DIEM DEN DAU TIEN
-    //                /*
-    //                00x
-    //                011
-    //                x1x
-    //*/
-    //                try
-    //                {
-    //                    //XET DIEM DEN DAU TIEN
-    //                    /*
-    //                    00x
-    //                    011
-    //                    x1x
-    //    */
-    //                    if (i + 1 < temp.Width && i - 1 >= 0 && j - 1 >= 0 && j + 1 < temp.Height)
-    //                    {
-    //                        if (temp.GetPixel(i, j).R == 0 && get_checkpoint_edge(i, j) == false && temp.GetPixel(i - 1, j).R == 255 && temp.GetPixel(i - 1, j - 1).R == 255
-    //                            && temp.GetPixel(i, j + 1).R == 0 && temp.GetPixel(i + 1, j).R == 0 && temp.GetPixel(i, j - 1).R == 255)
+            //        for(int i=1;i<temp.Width-1;i++)
+            //        {
+            //            for (int j = 1; j < temp.Height - 1; j++)
+            //            {
+            //                //XET DIEM DEN DAU TIEN
+            //                /*
+            //                00x
+            //                011
+            //                x1x
+            //*/
+            //                try
+            //                {
+            //                    //XET DIEM DEN DAU TIEN
+            //                    /*
+            //                    00x
+            //                    011
+            //                    x1x
+            //    */
+            //                    if (i + 1 < temp.Width && i - 1 >= 0 && j - 1 >= 0 && j + 1 < temp.Height)
+            //                    {
+            //                        if (temp.GetPixel(i, j).R == 0 && get_checkpoint_edge(i, j) == false && temp.GetPixel(i - 1, j).R == 255 && temp.GetPixel(i - 1, j - 1).R == 255
+            //                            && temp.GetPixel(i, j + 1).R == 0 && temp.GetPixel(i + 1, j).R == 0 && temp.GetPixel(i, j - 1).R == 255)
 
             //                        {
             //                            //arr[1, 1] = -1;
@@ -188,7 +190,7 @@ namespace DicomImageViewer
             //{
             //    temp.SetPixel(edge[i].X, edge[i].Y, Color.Red);
             //}
-         //   edge_from.Image = org;
+            //   edge_from.Image = org;
         }
         public MainForm()
         {
@@ -529,9 +531,9 @@ namespace DicomImageViewer
         {
 
         }
-      
-       public
-           bool isStatus(int x, int y, List<Point> lst)
+
+        public
+            bool isStatus(int x, int y, List<Point> lst)
         {
             for (int t = 0; t < lst.Count; t++)
             {
@@ -542,19 +544,19 @@ namespace DicomImageViewer
             }
             return false;
         }
-        public void ToLoang( Bitmap temp,int x,int y)
+        public void ToLoang(Bitmap temp, int x, int y)
         {
-           
+
         }
         public void BoBien()
         {
             Bitmap bmpOStu = new Bitmap(pcOstu.Image);
-            
-           
-          
-          
-            ToLoang( bmpOStu, 1, 1);
-            
+
+
+
+
+            ToLoang(bmpOStu, 1, 1);
+
             pcBoNen.Image = bmpOStu;
         }
 
@@ -643,9 +645,9 @@ namespace DicomImageViewer
             pcDenose.Image = temp;
 
         }
-        public int getTrangDau(Bitmap bmp,int k)
-        { 
-            for(int i =0;i<bmp.Width;i++)
+        public int getTrangDau(Bitmap bmp, int k)
+        {
+            for (int i = 0; i < bmp.Width; i++)
                 if (bmp.GetPixel(i, k).R == 255)
                 {
                     return i;
@@ -654,7 +656,7 @@ namespace DicomImageViewer
         }
         public int getTrangCuoi(Bitmap bmp, int k)
         {
-            for (int i = bmp.Width - 1;i>=0 ; i--)
+            for (int i = bmp.Width - 1; i >= 0; i--)
                 if (bmp.GetPixel(i, k).R == 255)
                 {
                     return i;
@@ -672,8 +674,8 @@ namespace DicomImageViewer
                 if (p.X + 1 >= 0 && p.X + 1 < btm.Width)
                 {
                     if (btm.GetPixel(p.X + 1, p.Y).R == 0)
-                    { 
-                        lst.Add (new Point(p.X+1,p.Y));
+                    {
+                        lst.Add(new Point(p.X + 1, p.Y));
                     }
                 }
                 if (p.X - 1 >= 0 && p.X - 1 < btm.Width)
@@ -685,16 +687,16 @@ namespace DicomImageViewer
                 }
                 if (p.Y + 1 >= 0 && p.Y + 1 < btm.Height)
                 {
-                    if (btm.GetPixel(p.X , p.Y+1).R == 0)
+                    if (btm.GetPixel(p.X, p.Y + 1).R == 0)
                     {
-                        lst.Add(new Point(p.X , p.Y+1));
+                        lst.Add(new Point(p.X, p.Y + 1));
                     }
                 }
                 if (p.Y - 1 >= 0 && p.Y - 1 < btm.Width)
                 {
-                    if (btm.GetPixel(p.X, p.Y-1).R == 0)
+                    if (btm.GetPixel(p.X, p.Y - 1).R == 0)
                     {
-                        lst.Add(new Point(p.X , p.Y-1));
+                        lst.Add(new Point(p.X, p.Y - 1));
                     }
                 }
 
@@ -763,7 +765,7 @@ namespace DicomImageViewer
                     if (org.GetPixel(p.X + 1, p.Y).R == 0)
                     {
                         lst.Add(new Point(p.X + 1, p.Y));
-                        org.SetPixel(p.X+1, p.Y, Color.White);
+                        org.SetPixel(p.X + 1, p.Y, Color.White);
                     }
                 }
                 if (p.X - 1 >= 0 && p.X - 1 < org.Width)
@@ -771,7 +773,7 @@ namespace DicomImageViewer
                     if (org.GetPixel(p.X - 1, p.Y).R == 0)
                     {
                         lst.Add(new Point(p.X - 1, p.Y));
-                        org.SetPixel(p.X-1, p.Y, Color.White);
+                        org.SetPixel(p.X - 1, p.Y, Color.White);
                     }
                 }
                 if (p.Y + 1 >= 0 && p.Y + 1 < org.Height)
@@ -779,7 +781,7 @@ namespace DicomImageViewer
                     if (org.GetPixel(p.X, p.Y + 1).R == 0)
                     {
                         lst.Add(new Point(p.X, p.Y + 1));
-                        org.SetPixel(p.X, p.Y+1, Color.White);
+                        org.SetPixel(p.X, p.Y + 1, Color.White);
                     }
                 }
                 if (p.Y - 1 >= 0 && p.Y - 1 < org.Width)
@@ -787,19 +789,23 @@ namespace DicomImageViewer
                     if (org.GetPixel(p.X, p.Y - 1).R == 0)
                     {
                         lst.Add(new Point(p.X, p.Y - 1));
-                        org.SetPixel(p.X, p.Y-1, Color.White);
+                        org.SetPixel(p.X, p.Y - 1, Color.White);
                     }
                 }
 
             }
-          
+
             pcBoNen.Image = org;
             denoise_step3();
             get_edge();
             classter();
+            neron listfile = new neron();
+            listfile.ShellInputData(new Bitmap(pc_class.Image));
+            pc_class.Image =
+            listfile.readfromfile(new Bitmap(pc_class.Image));
         }
 
-        public  void classter()
+        public void classter()
         {
             Bitmap org = new Bitmap(denoiseFromStep3.Image);
             List<Point> lst = new List<Point>();
@@ -845,8 +851,40 @@ namespace DicomImageViewer
             }
 
             pc_class.Image = org;
-            
+
             //get_edge();
         }
+
+        private void bt_inputneuron_Click(object sender, EventArgs e)
+        {
+
+            Bitmap pmb = new Bitmap(pc_class.Width, pc_class.Height);
+            neron nr = new neron();
+            Bitmap result = nr.readfromfile2(pmb, 0);
+
+            int maxX = nr.maxX() - nr.minX();
+            int maxY = nr.maxY() - nr.minY();
+            int[,] arr = new int[nr.maxX() - nr.minX(), nr.maxY() - nr.minY()];
+
+            pictureBox2.Image = result;
+            for (int i = 0; i < nr.lstseglabel.Count; i++)
+            {
+
+                {
+                    arr[nr.lstseglabel[i].x - nr.minX(), nr.lstseglabel[i].y - nr.minY()] = 1;
+                }
+            }
+            System.IO.StreamWriter file = new
+                System.IO.StreamWriter(@"C:\Users\An\Desktop\DICOMTeam.git\trunk\Source\LungCancer\data1.txt", false);
+            for (int i = 0; i < maxX; i++)
+                for (int j = 0; j < maxY; j++)
+                {
+                    string line = arr[i, j].ToString();
+                    file.WriteLine(line);
+                }
+
+            file.Flush();
+            file.Close();
+        } 
     }
 }
