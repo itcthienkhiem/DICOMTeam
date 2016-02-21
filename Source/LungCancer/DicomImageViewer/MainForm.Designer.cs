@@ -48,7 +48,6 @@
             this.pcDenose = new System.Windows.Forms.PictureBox();
             this.input_neuron = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.imagePanelControl = new DicomImageViewer.ImagePanelControl();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.tabPage4 = new System.Windows.Forms.TabPage();
@@ -57,14 +56,18 @@
             this.tabPage6 = new System.Windows.Forms.TabPage();
             this.denoiseFromStep3 = new System.Windows.Forms.PictureBox();
             this.tabPage7 = new System.Windows.Forms.TabPage();
-            this.blobsBrowser1 = new DicomImageViewer.BlobsBrowser();
             this.tabPage8 = new System.Windows.Forms.TabPage();
             this.pc_class = new System.Windows.Forms.PictureBox();
-            this.button1 = new System.Windows.Forms.Button();
-            this.windowLevelControl = new DicomImageViewer.WindowLevelGraphControl();
             this.tabPage9 = new System.Windows.Forms.TabPage();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.button1 = new System.Windows.Forms.Button();
             this.bt_inputneuron = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
+            this.imagePanelControl = new DicomImageViewer.ImagePanelControl();
+            this.blobsBrowser1 = new DicomImageViewer.BlobsBrowser();
+            this.windowLevelControl = new DicomImageViewer.WindowLevelGraphControl();
+            this.tabPage10 = new System.Windows.Forms.TabPage();
+            this.resultALL = new System.Windows.Forms.PictureBox();
             this.gbViewSettings.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pcOstu)).BeginInit();
@@ -84,6 +87,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.pc_class)).BeginInit();
             this.tabPage9.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
+            this.tabPage10.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.resultALL)).BeginInit();
             this.SuspendLayout();
             // 
             // bnOpen
@@ -276,6 +281,7 @@
             this.input_neuron.Controls.Add(this.tabPage7);
             this.input_neuron.Controls.Add(this.tabPage8);
             this.input_neuron.Controls.Add(this.tabPage9);
+            this.input_neuron.Controls.Add(this.tabPage10);
             this.input_neuron.Location = new System.Drawing.Point(202, 3);
             this.input_neuron.Name = "input_neuron";
             this.input_neuron.SelectedIndex = 0;
@@ -293,17 +299,6 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Step 1";
             this.tabPage1.UseVisualStyleBackColor = true;
-            // 
-            // imagePanelControl
-            // 
-            this.imagePanelControl.AutoValidate = System.Windows.Forms.AutoValidate.Disable;
-            this.imagePanelControl.BackColor = System.Drawing.SystemColors.Control;
-            this.imagePanelControl.CausesValidation = false;
-            this.imagePanelControl.Location = new System.Drawing.Point(6, 6);
-            this.imagePanelControl.Name = "imagePanelControl";
-            this.imagePanelControl.Size = new System.Drawing.Size(644, 707);
-            this.imagePanelControl.TabIndex = 1;
-            this.imagePanelControl.TabStop = false;
             // 
             // tabPage2
             // 
@@ -389,16 +384,6 @@
             this.tabPage7.Text = "tabPage7";
             this.tabPage7.UseVisualStyleBackColor = true;
             // 
-            // blobsBrowser1
-            // 
-            this.blobsBrowser1.Highlighting = DicomImageViewer.BlobsBrowser.HightlightType.Quadrilateral;
-            this.blobsBrowser1.Location = new System.Drawing.Point(360, 238);
-            this.blobsBrowser1.Name = "blobsBrowser1";
-            this.blobsBrowser1.ShowRectangleAroundSelection = false;
-            this.blobsBrowser1.Size = new System.Drawing.Size(322, 242);
-            this.blobsBrowser1.TabIndex = 0;
-            this.blobsBrowser1.Text = "blobsBrowser1";
-            // 
             // tabPage8
             // 
             this.tabPage8.Controls.Add(this.pc_class);
@@ -418,23 +403,6 @@
             this.pc_class.Size = new System.Drawing.Size(1036, 713);
             this.pc_class.TabIndex = 19;
             this.pc_class.TabStop = false;
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(121, 541);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 23;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click_1);
-            // 
-            // windowLevelControl
-            // 
-            this.windowLevelControl.Location = new System.Drawing.Point(10, 300);
-            this.windowLevelControl.Name = "windowLevelControl";
-            this.windowLevelControl.Size = new System.Drawing.Size(165, 235);
-            this.windowLevelControl.TabIndex = 10;
             // 
             // tabPage9
             // 
@@ -456,6 +424,16 @@
             this.pictureBox2.TabIndex = 20;
             this.pictureBox2.TabStop = false;
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(121, 541);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 23;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click_1);
+            // 
             // bt_inputneuron
             // 
             this.bt_inputneuron.Location = new System.Drawing.Point(121, 618);
@@ -466,11 +444,70 @@
             this.bt_inputneuron.UseVisualStyleBackColor = true;
             this.bt_inputneuron.Click += new System.EventHandler(this.bt_inputneuron_Click);
             // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(15, 632);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(75, 23);
+            this.button2.TabIndex = 24;
+            this.button2.Text = "button2";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // imagePanelControl
+            // 
+            this.imagePanelControl.AutoValidate = System.Windows.Forms.AutoValidate.Disable;
+            this.imagePanelControl.BackColor = System.Drawing.SystemColors.Control;
+            this.imagePanelControl.CausesValidation = false;
+            this.imagePanelControl.Location = new System.Drawing.Point(6, 7);
+            this.imagePanelControl.Name = "imagePanelControl";
+            this.imagePanelControl.Size = new System.Drawing.Size(644, 707);
+            this.imagePanelControl.TabIndex = 1;
+            this.imagePanelControl.TabStop = false;
+            // 
+            // blobsBrowser1
+            // 
+            this.blobsBrowser1.Highlighting = DicomImageViewer.BlobsBrowser.HightlightType.Quadrilateral;
+            this.blobsBrowser1.Location = new System.Drawing.Point(360, 238);
+            this.blobsBrowser1.Name = "blobsBrowser1";
+            this.blobsBrowser1.ShowRectangleAroundSelection = false;
+            this.blobsBrowser1.Size = new System.Drawing.Size(322, 242);
+            this.blobsBrowser1.TabIndex = 0;
+            this.blobsBrowser1.Text = "blobsBrowser1";
+            // 
+            // windowLevelControl
+            // 
+            this.windowLevelControl.Location = new System.Drawing.Point(10, 300);
+            this.windowLevelControl.Name = "windowLevelControl";
+            this.windowLevelControl.Size = new System.Drawing.Size(165, 235);
+            this.windowLevelControl.TabIndex = 10;
+            // 
+            // tabPage10
+            // 
+            this.tabPage10.Controls.Add(this.resultALL);
+            this.tabPage10.Location = new System.Drawing.Point(4, 22);
+            this.tabPage10.Name = "tabPage10";
+            this.tabPage10.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage10.Size = new System.Drawing.Size(1042, 719);
+            this.tabPage10.TabIndex = 9;
+            this.tabPage10.Text = "tabPage10";
+            this.tabPage10.UseVisualStyleBackColor = true;
+            // 
+            // resultALL
+            // 
+            this.resultALL.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.resultALL.Location = new System.Drawing.Point(3, 3);
+            this.resultALL.Name = "resultALL";
+            this.resultALL.Size = new System.Drawing.Size(1036, 713);
+            this.resultALL.TabIndex = 21;
+            this.resultALL.TabStop = false;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1264, 733);
+            this.Controls.Add(this.button2);
             this.Controls.Add(this.bt_inputneuron);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.input_neuron);
@@ -514,6 +551,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.pc_class)).EndInit();
             this.tabPage9.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
+            this.tabPage10.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.resultALL)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -558,6 +597,9 @@
         private System.Windows.Forms.TabPage tabPage9;
         private System.Windows.Forms.PictureBox pictureBox2;
         private System.Windows.Forms.Button bt_inputneuron;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.TabPage tabPage10;
+        private System.Windows.Forms.PictureBox resultALL;
     }
 }
 

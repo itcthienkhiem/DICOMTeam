@@ -41,7 +41,31 @@ namespace DicomImageViewer
             }
             return org;
         }
+        public void readfromfile2()
+        {
+            count = 0;
+           // Bitmap org = (Bitmap)pc.Clone();
+            String[] files =
+                 System.IO.File.ReadAllLines(@"C:\Users\An\Desktop\DICOMTeam.git\trunk\Source\LungCancer\data.txt");
+            foreach (var file in files)
+            {
+                String[] str = file.Split(';');
+               // if (int.Parse(str[2]) == label)
+                {
+                    count++;
+                    lstseglabel.Add(new segmentLabel(int.Parse(str[0]), int.Parse(str[1]), int.Parse(str[2])));
+                  //  org.SetPixel(int.Parse(str[0]), int.Parse(str[1]), Color.Yellow);
+                }
+            }
+          //  return org;
+        }
 
+        /// <summary>
+        /// ve lai khoi u theo labewl cua bitmap
+        /// </summary>
+        /// <param name="pc"></param>
+        /// <param name="label"></param>
+        /// <returns></returns>
         public Bitmap readfromfile2(Bitmap pc,int label)
         {
             count = 0;
@@ -60,6 +84,18 @@ namespace DicomImageViewer
             }
             return org;
         }
+        public List<segmentLabel> getAlllablesegment(int lable)
+        {
+            List<segmentLabel> lst = new List<segmentLabel>();
+            for (int i=0; i<lstseglabel.Count;i++)
+            {
+                if(lstseglabel[i].label==lable)
+                {
+                    lst.Add(lstseglabel[i]);
+                }
+            }
+            return lst;
+        }
         public void writetofile()
         {
             System.IO.StreamWriter file = new 
@@ -73,6 +109,7 @@ namespace DicomImageViewer
             file.Close();
             
         }
+    
         public Boolean isexit(int x, int y)
         {
             for(int i=0; i<lstseglabel.Count;i++)
@@ -86,62 +123,62 @@ namespace DicomImageViewer
             }
             return false;
         }
-        public int maxX()
+        public int maxX(List<segmentLabel> lst)
         {
-            int max = lstseglabel[0].x;
-            for (int i=1;i<lstseglabel.Count;i++)
+            int max = lst[0].x;
+            for (int i=1;i<lst.Count;i++)
             {
-                if(max<lstseglabel[i].x)
+                if(max<lst[i].x)
                 {
-                    max = lstseglabel[i].x;
+                    max = lst[i].x;
                 }
             }
             return max;
         }
-        public int maxY()
+        public int maxY(List<segmentLabel> lst)
         {
-            int max = lstseglabel[0].y;
-            for (int i = 1; i < lstseglabel.Count; i++)
+            int max = lst[0].y;
+            for (int i = 1; i < lst.Count; i++)
             {
-                if (max < lstseglabel[i].y)
+                if (max < lst[i].y)
                 {
-                    max = lstseglabel[i].y;
+                    max = lst[i].y;
                 }
             }
             return max;
         }
-        public int minX()
+        public int minX(List<segmentLabel> lst)
         {
-            int min = lstseglabel[0].x;
-            for (int i = 1; i < lstseglabel.Count; i++)
+            int min = lst[0].x;
+            for (int i = 1; i < lst.Count; i++)
             {
-                if (min > lstseglabel[i].x)
+                if (min > lst[i].x)
                 {
-                    min = lstseglabel[i].x;
+                    min = lst[i].x;
                 }
             }
             return min;
         }
-        public int minY()
+        public int minY(List<segmentLabel> lst)
         {
-            int min = lstseglabel[0].x;
-            for (int i = 1; i < lstseglabel.Count; i++)
+            int min = lst[0].y;
+            for (int i = 1; i < lst.Count; i++)
             {
-                if (min > lstseglabel[i].y)
+                if (min > lst[i].y)
                 {
-                    min = lstseglabel[i].y;
+                    min = lst[i].y;
                 }
             }
             return min;
         }
         public void lancanW(Bitmap org, int x, int y, int label)
         {
-            lstseglabel.Clear();
+        //    List<segmentLabel>lstsegment = new List<segmentLabel>();
             // Bitmap org = new Bitmap(pcOstu.Image);
             List<Point> lst = new List<Point>();
             lst.Add(new Point(x, y));
             lstseglabel.Add(new segmentLabel(x, y, label));
-
+           // lstsegment.Add(new segmentLabel(x, y, label));
             while (lst.Count != 0)
             {
                 Point p = lst[0];

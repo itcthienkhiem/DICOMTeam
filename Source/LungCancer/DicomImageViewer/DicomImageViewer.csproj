@@ -148,6 +148,9 @@
     <Compile Include="BlobsBrowser.designer.cs">
       <DependentUpon>BlobsBrowser.cs</DependentUpon>
     </Compile>
+    <Compile Include="Common.cs" />
+    <Compile Include="inputneuron.cs" />
+    <Compile Include="modelNeuron.cs" />
     <Compile Include="neron.cs" />
     <Compile Include="Otsu.cs" />
     <Compile Include="DicomDecoder.cs" />

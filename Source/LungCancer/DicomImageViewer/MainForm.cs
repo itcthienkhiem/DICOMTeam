@@ -7,6 +7,7 @@ using System.Collections;
 using AForge.Imaging;
 using AForge.Imaging.Filters;
 using System.Data.OleDb;
+using System.IO;
 // Program to view simple DICOM images.
 // Written by Amarnath S, Mahesh Reddy S, Bangalore, India, April 2009.
 // Updated along with Harsha T, April 2010 to include Window/Level
@@ -801,8 +802,8 @@ namespace DicomImageViewer
             classter();
             neron listfile = new neron();
             listfile.ShellInputData(new Bitmap(pc_class.Image));
-            pc_class.Image =
-            listfile.readfromfile(new Bitmap(pc_class.Image));
+            //pc_class.Image =
+            //listfile.readfromfile(new Bitmap(pc_class.Image));
         }
 
         public void classter()
@@ -854,37 +855,84 @@ namespace DicomImageViewer
 
             //get_edge();
         }
-
-        private void bt_inputneuron_Click(object sender, EventArgs e)
+        public void saveInputModel( )
         {
 
             Bitmap pmb = new Bitmap(pc_class.Width, pc_class.Height);
             neron nr = new neron();
-            Bitmap result = nr.readfromfile2(pmb, 0);
-
-            int maxX = nr.maxX() - nr.minX();
-            int maxY = nr.maxY() - nr.minY();
-            int[,] arr = new int[nr.maxX() - nr.minX(), nr.maxY() - nr.minY()];
-
-            pictureBox2.Image = result;
-            for (int i = 0; i < nr.lstseglabel.Count; i++)
+            nr.readfromfile2();
+            List<int[,]> lstarray = new List<int[,]>();
+            for (int t = 0; t < nr.lstseglabel[nr.lstseglabel.Count - 1].label; t++)
             {
 
+                List<segmentLabel> lst = new List<segmentLabel>();
+                lst = nr.getAlllablesegment(t);
+                int maxX = nr.maxX(lst) - nr.minX(lst);
+                int maxY = nr.maxY(lst) - nr.minY(lst);
+                int[,] arr = new int[60, 60];
+                for (int i = 0; i < lst.Count; i++)
                 {
-                    arr[nr.lstseglabel[i].x - nr.minX(), nr.lstseglabel[i].y - nr.minY()] = 1;
+
+                    {
+                        arr[lst[i].x - nr.minX(lst), lst[i].y - nr.minY(lst)] = 1;
+                    }
+                }
+                lstarray.Add(arr);
+
+            }
+            for (int t = 0; t < nr.lstseglabel[nr.lstseglabel.Count - 1].label; t++)
+            {
+                Bitmap bmp = new Bitmap(60, 60);
+                for (int i = 0; i < lstarray[t].GetLength(0); i++)
+
+                    for (int j = 0; j < lstarray[t].GetLength(1); j++)
+                    {
+                        if (lstarray[t][i, j] == 0)
+                        {
+                            bmp.SetPixel(i, j, Color.White);
+                        }
+                        else
+                            bmp.SetPixel(i, j, Color.Black);
+                    }
+                bmp.Save("input/" + t.ToString() + ".png");
+
+            }
+           
+        }
+        public void testALL()
+        {
+            String[] filename = Directory.GetFiles("input");
+            if (filename.Count() == 0)
+            {   
+                MessageBox.Show("không có dữ liệu ảnh input");
+                return;
+            }
+            List<bool> lstResult = new List<bool>();
+            foreach (var item in filename)
+            {
+                modelNeuron model = new modelNeuron();
+                bool result = model.testmachine( item);
+                lstResult.Add(result);
+            }
+            for (int i = 0; i < lstResult.Count(); i++)
+            {
+                if(lstResult[i]==true)
+                {
+                    neron nr = new neron();
+                  Bitmap bmp =   nr.readfromfile2(imagePanelControl.getBitMap(), i);
+                    resultALL.Image = bmp;
                 }
             }
-            System.IO.StreamWriter file = new
-                System.IO.StreamWriter(@"C:\Users\An\Desktop\DICOMTeam.git\trunk\Source\LungCancer\data1.txt", false);
-            for (int i = 0; i < maxX; i++)
-                for (int j = 0; j < maxY; j++)
-                {
-                    string line = arr[i, j].ToString();
-                    file.WriteLine(line);
-                }
+        }
+        private void bt_inputneuron_Click(object sender, EventArgs e)
+        {
+            saveInputModel();
+        }
 
-            file.Flush();
-            file.Close();
-        } 
+        private void button2_Click(object sender, EventArgs e)
+        {
+            testALL();
+
+        }
     }
 }
