@@ -1197,7 +1197,7 @@ namespace DicomImageViewer
                         else
                             bmp.SetPixel(i, j, Color.Black);
                     }
-                bmp.Save("input/" + t.ToString() + ".png");
+                bmp.Save("input/" +t.ToString("00") + ".png");
 
             }
            
@@ -1211,6 +1211,7 @@ namespace DicomImageViewer
                 return;
             }
             List<bool> lstResult = new List<bool>();
+            Array.Sort<String>(filename);
             for (int i = 0; i < filename.Length; i++)
             {
                 modelNeuron model = new modelNeuron();
