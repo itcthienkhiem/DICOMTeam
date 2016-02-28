@@ -19,7 +19,7 @@ namespace DicomImageViewer
             {
                 for (int j = 0; j < pc.Height; j++)
                 {
-                    if(pc.GetPixel(i,j).R==255 &&! isexit(i,j))
+                    if (pc.GetPixel(i, j).R == 255 && pc.GetPixel(i, j).G == 255 && pc.GetPixel(i, j).B ==255 && !isexit(i, j))
                     {
                         lancanW(pc, i, j,label);
                         label++;
@@ -33,7 +33,7 @@ namespace DicomImageViewer
         {
             Bitmap org =(Bitmap) pc.Clone();
             String[] files = 
-                 System.IO.File.ReadAllLines (@"C:\Users\An\Desktop\DICOMTeam.git\trunk\Source\LungCancer\data.txt");
+                 System.IO.File.ReadAllLines (@"data.txt");
             foreach (var file in files)
             {
                 String[] str = file.Split(';');
@@ -46,7 +46,7 @@ namespace DicomImageViewer
             count = 0;
            // Bitmap org = (Bitmap)pc.Clone();
             String[] files =
-                 System.IO.File.ReadAllLines(@"C:\Users\An\Desktop\DICOMTeam.git\trunk\Source\LungCancer\data.txt");
+                 System.IO.File.ReadAllLines(@"data.txt");
             foreach (var file in files)
             {
                 String[] str = file.Split(';');
@@ -71,7 +71,7 @@ namespace DicomImageViewer
             count = 0;
             Bitmap org = (Bitmap)pc.Clone();
             String[] files =
-                 System.IO.File.ReadAllLines(@"C:\Users\An\Desktop\DICOMTeam.git\trunk\Source\LungCancer\data.txt");
+                 System.IO.File.ReadAllLines(@"data.txt");
             foreach (var file in files)
             {
                 String[] str = file.Split(';');
@@ -84,6 +84,8 @@ namespace DicomImageViewer
             }
             return org;
         }
+
+       
         public List<segmentLabel> getAlllablesegment(int lable)
         {
             List<segmentLabel> lst = new List<segmentLabel>();
@@ -99,7 +101,7 @@ namespace DicomImageViewer
         public void writetofile()
         {
             System.IO.StreamWriter file = new 
-                 System.IO.StreamWriter(@"C:\Users\An\Desktop\DICOMTeam.git\trunk\Source\LungCancer\data.txt", false);
+                 System.IO.StreamWriter(@"data.txt", false);
             foreach (var item in lstseglabel)
             {
                 string line = item.x + ";" + item.y + ";" + item.label;

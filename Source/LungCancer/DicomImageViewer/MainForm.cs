@@ -4,8 +4,7 @@ using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using System.Collections;
-using AForge.Imaging;
-using AForge.Imaging.Filters;
+
 using System.Data.OleDb;
 using System.IO;
 // Program to view simple DICOM images.
@@ -91,7 +90,6 @@ namespace DicomImageViewer
 
         private void ProcessImage(Bitmap image)
         {
-            int foundBlobsCount = blobsBrowser1.SetImage(image);
 
             //    blobsCountLabel.Text = string.Format("Found blobs' count: {0}", foundBlobsCount);
             //    propertyGrid.SelectedObject = null;
@@ -100,13 +98,13 @@ namespace DicomImageViewer
 
         {
 
-            Bitmap org = new Bitmap(denoiseFromStep3.Image);
+         //   Bitmap org = new Bitmap(denoiseFromStep3.Image);
             // Bitmap  temp =(Bitmap) imagePanelControl.getBitMap().Clone();
             //   Bitmap gsimage = Grayscale.CommonAlgorithms.BT709.Apply(temp);
             //SobelEdgeDetector filter = new SobelEdgeDetector();
 
             // filter.ApplyInPlace(org);
-            ProcessImage(org);
+          //  ProcessImage(org);
 
 
             //        for(int i=1;i<temp.Width-1;i++)
@@ -519,8 +517,12 @@ namespace DicomImageViewer
         private void label9_Click(object sender, EventArgs e)
         {
         }
-
-        private void btnBitMap_Click(object sender, EventArgs e)
+        /// <summary>
+        /// hàm này view histogram
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void viewHistogram()
         {
 
             //  int grayscale = (orgcol.R + orgcol.G + orgcol.B) / 3;
@@ -563,23 +565,37 @@ namespace DicomImageViewer
 
         private void button1_Click(object sender, EventArgs e)
         {
+            
+            BinaryImages();
+           // switchImages();
+            //deNoise();
+           
+            getLung();
+           
+         //   neron nr = new neron();
+
+        //    pictureBox3.Image = nr.readfromfile2((Bitmap)pc_class.Image, 0);
+        }
+        /// <summary>
+        /// hàm nhị phân hóa ảnh
+        /// </summary>
+        private void BinaryImages()
+        {
             Otsu ot = new Otsu();
             Bitmap org = imagePanelControl.getBitMap();
             Bitmap temp = (Bitmap)org.Clone();
             ot.Convert2GrayScaleFast(temp);
-
             int otsuThreshold = ot.getOtsuThreshold((Bitmap)temp);
-            ot.threshold(temp, otsuThreshold);
-            //           textBox1.Text = otsuThreshold.ToString();
+            ot.threshold(temp, otsuThreshold);//set value to images
             pcOstu.Image = temp;
-
             textBox3.Text = otsuThreshold.ToString();
-            bt_Eff_Click(sender, e);
-            bt_denoise_Click(sender, e);
-            btnBitMap_Click(sender, e);
         }
-
-        private void bt_Eff_Click(object sender, EventArgs e)
+        /// <summary>
+        /// chuyen doi nguoc anh 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void switchImages()
         {
             Bitmap org = new Bitmap(pcOstu.Image);
             Bitmap temp = (Bitmap)org.Clone();
@@ -595,57 +611,61 @@ namespace DicomImageViewer
                         temp.SetPixel(i, j, Color.Black);
                 }
             }
-            PC_Eff.Image = temp;
+            //PC_Eff.Image = temp;
         }
+        /// <summary>
+        /// làm mịn các điểm ảnh nhiểu dựa vào lân cận 4
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        //private void deNoise()
+        //{
+        //    Bitmap org = new Bitmap(PC_Eff.Image);
+        //    Bitmap temp = (Bitmap)org.Clone();
+        //    //for (int n = 0; n < 5; n++)
+        //    {
+        //        for (int i = 1; i < temp.Width - 1; i++)
+        //        {
 
-        private void bt_denoise_Click(object sender, EventArgs e)
-        {
-            Bitmap org = new Bitmap(PC_Eff.Image);
-            Bitmap temp = (Bitmap)org.Clone();
-            //for (int n = 0; n < 5; n++)
-            {
-                for (int i = 1; i < temp.Width - 1; i++)
-                {
+        //            for (int j = 1; j < temp.Height - 1; j++)
+        //            {
+        //                if (temp.GetPixel(i, j).R == 255)
+        //                {
+        //                    int count = 0;
+        //                    if (temp.GetPixel(i - 1, j).R == 0)
+        //                        count++;
+        //                    if (temp.GetPixel(i, j + 1).R == 0)
+        //                        count++;
+        //                    if (temp.GetPixel(i - 1, j - 1).R == 0)
+        //                        count++;
+        //                    if (temp.GetPixel(i + 1, j + 1).R == 0)
+        //                        count++;
+        //                    if (count >= 3)
+        //                    {
+        //                        temp.SetPixel(i, j, Color.Black);
+        //                    }
 
-                    for (int j = 1; j < temp.Height - 1; j++)
-                    {
-                        if (temp.GetPixel(i, j).R == 255)
-                        {
-                            int count = 0;
-                            if (temp.GetPixel(i - 1, j).R == 0)
-                                count++;
-                            if (temp.GetPixel(i, j + 1).R == 0)
-                                count++;
-                            if (temp.GetPixel(i - 1, j - 1).R == 0)
-                                count++;
-                            if (temp.GetPixel(i + 1, j + 1).R == 0)
-                                count++;
-                            if (count >= 3)
-                            {
-                                temp.SetPixel(i, j, Color.Black);
-                            }
+        //                }
+        //                else
+        //                {
+        //                    int cout = 0;
+        //                    if (temp.GetPixel(i - 1, j).R == 255)
+        //                        cout++;
+        //                    if (temp.GetPixel(i, j + 1).R == 255)
+        //                        cout++;
+        //                    if (temp.GetPixel(i - 1, j - 1).R == 255)
+        //                        cout++;
+        //                    if (temp.GetPixel(i + 1, j + 1).R == 255)
+        //                        cout++;
+        //                    if (cout >= 3)
+        //                        temp.SetPixel(i, j, Color.White);
+        //                }
+        //            }
+        //        }
+        //    }
+        //    //pcDenose.Image = temp;
 
-                        }
-                        else
-                        {
-                            int cout = 0;
-                            if (temp.GetPixel(i - 1, j).R == 255)
-                                cout++;
-                            if (temp.GetPixel(i, j + 1).R == 255)
-                                cout++;
-                            if (temp.GetPixel(i - 1, j - 1).R == 255)
-                                cout++;
-                            if (temp.GetPixel(i + 1, j + 1).R == 255)
-                                cout++;
-                            if (cout >= 3)
-                                temp.SetPixel(i, j, Color.White);
-                        }
-                    }
-                }
-            }
-            pcDenose.Image = temp;
-
-        }
+        //}
         public int getTrangDau(Bitmap bmp, int k)
         {
             for (int i = 0; i < bmp.Width; i++)
@@ -703,63 +723,247 @@ namespace DicomImageViewer
 
             }
         }
-        public void denoise_step3()
+        /// <summary>
+        /// làm mịn điểm ảnh, sau khi tách phổi
+        /// </summary>
+        //public void denoise_step3()
+        //{
+        //    Bitmap temp = new Bitmap(pcBoNen.Image);
+
+        //    {
+        //        for (int i = 1; i < temp.Width - 1; i++)
+        //        {
+
+        //            for (int j = 1; j < temp.Height - 1; j++)
+        //            {
+        //                if (temp.GetPixel(i, j).R == 255)
+        //                {
+        //                    int count = 0;
+        //                    if (temp.GetPixel(i - 1, j).R == 0)
+        //                        count++;
+        //                    if (temp.GetPixel(i, j + 1).R == 0)
+        //                        count++;
+        //                    if (temp.GetPixel(i - 1, j - 1).R == 0)
+        //                        count++;
+        //                    if (temp.GetPixel(i + 1, j + 1).R == 0)
+        //                        count++;
+        //                    if (count >= 3)
+        //                    {
+        //                        temp.SetPixel(i, j, Color.Black);
+        //                    }
+
+        //                }
+        //                else
+        //                {
+        //                    int cout = 0;
+        //                    if (temp.GetPixel(i - 1, j).R == 255)
+        //                        cout++;
+        //                    if (temp.GetPixel(i, j + 1).R == 255)
+        //                        cout++;
+        //                    if (temp.GetPixel(i - 1, j - 1).R == 255)
+        //                        cout++;
+        //                    if (temp.GetPixel(i + 1, j + 1).R == 255)
+        //                        cout++;
+        //                    if (cout >= 3)
+        //                        temp.SetPixel(i, j, Color.White);
+        //                }
+        //            }
+        //        }
+        //    }
+        //    denoiseFromStep3.Image = temp;
+        //}
+        /// <summary>
+        /// hàm tách phổi 
+        /// </summary>
+        private void getLung()
         {
-            Bitmap temp = new Bitmap(pcBoNen.Image);
+           // lineOfLine();
+            //org = getLungCanter(0, org.Height-1, new Bitmap(org));
+            //org = getLungCanter(org.Width-1, 0, new Bitmap(org));
+            //org = getLungCanter(org.Width-1, org.Height-1, new Bitmap(org));
+            Bitmap org = getLungCanter(0, 0,new Bitmap( pcOstu.Image));
+            pcBoNen.Image = org;
+           
+           // int color = org.GetPixel(0, org.Width).R;
+           // denoise_step3();
+         //   get_edge();
 
-            {
-                for (int i = 1; i < temp.Width - 1; i++)
-                {
+           // Bitmap org = new Bitmap(pcBoNen.Image);
+           
+            classter(0,0,org);
+            for (int i = 0; i < org.Width; i++)
+                if (org.GetPixel(i, 0).R == 0)
 
-                    for (int j = 1; j < temp.Height - 1; j++)
-                    {
-                        if (temp.GetPixel(i, j).R == 255)
-                        {
-                            int count = 0;
-                            if (temp.GetPixel(i - 1, j).R == 0)
-                                count++;
-                            if (temp.GetPixel(i, j + 1).R == 0)
-                                count++;
-                            if (temp.GetPixel(i - 1, j - 1).R == 0)
-                                count++;
-                            if (temp.GetPixel(i + 1, j + 1).R == 0)
-                                count++;
-                            if (count >= 3)
-                            {
-                                temp.SetPixel(i, j, Color.Black);
-                            }
+                    classterRemoveBlackEDGE(i, 0, org);
+                else
+                    if (org.GetPixel(i, 0).R == 255)
+                        classter(i, 0,org);
 
-                        }
-                        else
-                        {
-                            int cout = 0;
-                            if (temp.GetPixel(i - 1, j).R == 255)
-                                cout++;
-                            if (temp.GetPixel(i, j + 1).R == 255)
-                                cout++;
-                            if (temp.GetPixel(i - 1, j - 1).R == 255)
-                                cout++;
-                            if (temp.GetPixel(i + 1, j + 1).R == 255)
-                                cout++;
-                            if (cout >= 3)
-                                temp.SetPixel(i, j, Color.White);
-                        }
-                    }
-                }
-            }
-            denoiseFromStep3.Image = temp;
+            for (int i = 0; i < org.Width; i++)
+                if (org.GetPixel(0, i).R == 0)
+
+                    classterRemoveBlackEDGE(0, i, org);
+                else
+                    if (org.GetPixel(0, i).R == 255)
+                        classter(0, i, org);
+           
+            for (int i = 0; i < org.Width; i++)
+                if (org.GetPixel(org.Width -1, i).R == 0)
+
+                    classterRemoveBlackEDGE(org.Width - 1, i, org);
+                else
+                    if (org.GetPixel(org.Width - 1, i).R == 255)
+                        classter(org.Width - 1, i, org);
+            for (int i = 0; i < org.Width; i++)
+                if (org.GetPixel(i, org.Height -1).R == 0)
+
+                    classterRemoveBlackEDGE(i, org.Height - 1, org);
+                else
+                    if (org.GetPixel(i, org.Height - 1).R == 255)
+                        classter(i, org.Height - 1, org);
+            pc_class.Image = org;
+            
+//            classter(org.Width-1, org.Height-1);
+       //     classter(0, org.Height-1);
+        //    classter(org.Width-1, 0);
+        //    classter(0, 930);
+           neron listfile = new neron();
+            //Bitmap bmp  = new Bitmap(pc_class.Image);
+             
+
+            listfile.ShellInputData(org);
+            
+     //       pictureBox3.Image =
+     //       listfile.readfromfile2(new Bitmap(pc_class.Image),0);
         }
 
-
-        private void button1_Click_1(object sender, EventArgs e)
+        public Boolean isexit(int x, int y, List <Point > p )
         {
-            Bitmap org = new Bitmap(pcOstu.Image);
+            for (int i = 0; i < p.Count; i++)
+            {
+                if (p[i].X == x && p[i].Y == y)
+                {
+                    return true;
+
+                }
+
+            }
+            return false;
+        }
+        /// <summary>
+        /// hàm xác định số thành phần liên thông trong đồ thị 
+        /// </summary>
+        private void lineOfLine(Bitmap org)
+        {
+            ShellInputData(org);
+         
+            
+        }
+        public void ShellInputData(Bitmap pc)
+        {
+            int label = 0;
             List<Point> lst = new List<Point>();
-            lst.Add(new Point(0, 0));
+            List<Object> lstObject = new List<Object>();
+            for (int i = 0; i < pc.Width; i++)
+            {
+                for (int j = 0; j < pc.Height; j++)
+                {
+                    //mau den 
+                    if (pc.GetPixel(i, j).R == 0 && pc.GetPixel(i, j).G == 0 && pc.GetPixel(i, j).B == 0 && !isexit(i, j, lst))
+                    {
+
+                      List<Point> p =  lancanW(pc, i, j, label,lst);
+                        
+                      lstObject.Add(p);
+                        label++;
+                    }
+                }
+
+            }
+           // writetofile();
+        }
+        /// <summary>
+        /// p mang danh dau 
+        /// </summary>
+        /// <param name="org"></param>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <param name="label"></param>
+        /// <param name="p"></param>
+        /// <returns></returns>
+        public List<Point> lancanW(Bitmap org, int x, int y, int label,List<Point> ps )
+        {
+            //    List<segmentLabel>lstsegment = new List<segmentLabel>();
+            // Bitmap org = new Bitmap(pcOstu.Image);
+            List<Point> lst = new List<Point>();
+            lst.Add(new Point(x, y));
+            //danh dau trong 1 thanh phan lien thong 
+            List<Point> lstTemp = new List<Point>();
+            lstTemp .Add (new Point (x,y));
+            ps.Add(new Point(x, y));
+          //  lst.Add(new segmentLabel(x, y, label));
+            // lstsegment.Add(new segmentLabel(x, y, label));
             while (lst.Count != 0)
             {
                 Point p = lst[0];
                 lst.RemoveAt(0);
+
+                if (p.X + 1 >= 0 && p.X + 1 < org.Width && !isexit(p.X + 1, p.Y,lstTemp))
+                {
+                    if (org.GetPixel(p.X + 1, p.Y).R == 0)
+                    {
+                        lst.Add(new Point(p.X + 1, p.Y));
+                        lstTemp.Add(new Point(p.X + 1, p.Y));
+                        ps.Add(new Point(p.X + 1, p.Y));
+                     //   lstseglabel.Add(new segmentLabel(p.X + 1, p.Y, label));
+                    }
+                }
+                if (p.X - 1 >= 0 && p.X - 1 < org.Width && !isexit(p.X - 1, p.Y, lstTemp))
+                {
+                    if (org.GetPixel(p.X - 1, p.Y).R == 0)
+                    {
+                        lst.Add(new Point(p.X - 1, p.Y));
+                        lstTemp.Add(new Point(p.X - 1, p.Y)); ps.Add(new Point(p.X - 1, p.Y));
+                      //  lstseglabel.Add(new segmentLabel(p.X - 1, p.Y, label));
+                    }
+                }
+                if (p.Y + 1 >= 0 && p.Y + 1 < org.Height && !isexit(p.X, p.Y + 1,lstTemp))
+                {
+                    if (org.GetPixel(p.X, p.Y + 1).R == 0)
+                    {
+                        lst.Add(new Point(p.X, p.Y + 1));
+                        lstTemp.Add(new Point(p.X, p.Y + 1)); ps.Add(new Point(p.X, p.Y + 1));
+                       // lstseglabel.Add(new segmentLabel(p.X, p.Y + 1, label));
+                    }
+                }
+                if (p.Y - 1 >= 0 && p.Y - 1 < org.Width && !isexit(p.X, p.Y - 1, lstTemp))
+                {
+                    if (org.GetPixel(p.X, p.Y - 1).R == 0)
+                    {
+                        lst.Add(new Point(p.X, p.Y - 1));
+                        lstTemp.Add(new Point(p.X, p.Y - 1)); ps.Add(new Point(p.X, p.Y - 1));
+                     //   lstseglabel.Add(new segmentLabel(p.X, p.Y - 1, label));
+                    }
+                }
+
+            }
+            return lstTemp;
+        }
+        private Bitmap getLungCanter(int x,int y,Bitmap bmp)
+        {
+            Bitmap org = bmp;
+            List<Point> lst = new List<Point>();
+            lst.Add(new Point(x, y));
+
+         
+           
+
+            while (lst.Count != 0)
+            {
+                Point p = lst[0];
+                lst.RemoveAt(0);
+
+
                 org.SetPixel(p.X, p.Y, Color.White);
                 if (p.X + 1 >= 0 && p.X + 1 < org.Width)
                 {
@@ -795,33 +999,131 @@ namespace DicomImageViewer
                 }
 
             }
-
-            pcBoNen.Image = org;
-            denoise_step3();
-            get_edge();
-            classter();
-            neron listfile = new neron();
-            listfile.ShellInputData(new Bitmap(pc_class.Image));
-            //pc_class.Image =
-            //listfile.readfromfile(new Bitmap(pc_class.Image));
+            return org;
         }
 
-        public void classter()
+        //private void button1_Click_1(object sender, EventArgs e)
+        //{
+        //    Bitmap org = new Bitmap(pcOstu.Image);
+        //    List<Point> lst = new List<Point>();
+        //    lst.Add(new Point(0, 0));
+        //    while (lst.Count != 0)
+        //    {
+        //        Point p = lst[0];
+        //        lst.RemoveAt(0);
+        //        org.SetPixel(p.X, p.Y, Color.White);
+        //        if (p.X + 1 >= 0 && p.X + 1 < org.Width)
+        //        {
+        //            if (org.GetPixel(p.X + 1, p.Y).R == 0)
+        //            {
+        //                lst.Add(new Point(p.X + 1, p.Y));
+        //                org.SetPixel(p.X + 1, p.Y, Color.White);
+        //            }
+        //        }
+        //        if (p.X - 1 >= 0 && p.X - 1 < org.Width)
+        //        {
+        //            if (org.GetPixel(p.X - 1, p.Y).R == 0)
+        //            {
+        //                lst.Add(new Point(p.X - 1, p.Y));
+        //                org.SetPixel(p.X - 1, p.Y, Color.White);
+        //            }
+        //        }
+        //        if (p.Y + 1 >= 0 && p.Y + 1 < org.Height)
+        //        {
+        //            if (org.GetPixel(p.X, p.Y + 1).R == 0)
+        //            {
+        //                lst.Add(new Point(p.X, p.Y + 1));
+        //                org.SetPixel(p.X, p.Y + 1, Color.White);
+        //            }
+        //        }
+        //        if (p.Y - 1 >= 0 && p.Y - 1 < org.Width)
+        //        {
+        //            if (org.GetPixel(p.X, p.Y - 1).R == 0)
+        //            {
+        //                lst.Add(new Point(p.X, p.Y - 1));
+        //                org.SetPixel(p.X, p.Y - 1, Color.White);
+        //            }
+        //        }
+
+        //    }
+
+        //    pcBoNen.Image = org;
+        //    denoise_step3();
+        //    get_edge();
+        //    classter(0,0);
+        //    classter(0, 930);
+        //    neron listfile = new neron();
+        //    listfile.ShellInputData(new Bitmap(pc_class.Image));
+        //    //pc_class.Image =
+        //    //listfile.readfromfile(new Bitmap(pc_class.Image));
+        //}
+        public void classterRemoveBlackEDGE(int x, int y, Bitmap org)
         {
-            Bitmap org = new Bitmap(denoiseFromStep3.Image);
             List<Point> lst = new List<Point>();
-            lst.Add(new Point(0, 0));
+            lst.Add(new Point(x, y));
             while (lst.Count != 0)
             {
                 Point p = lst[0];
                 lst.RemoveAt(0);
-                org.SetPixel(p.X, p.Y, Color.LightBlue);
+
+
+                org.SetPixel(p.X, p.Y, Color.LightSlateGray);
+                if (p.X + 1 >= 0 && p.X + 1 < org.Width)
+                {
+                    if (org.GetPixel(p.X + 1, p.Y).R == 0)
+                    {
+                        lst.Add(new Point(p.X + 1, p.Y));
+                        org.SetPixel(p.X + 1, p.Y, Color.LightSlateGray);
+                    }
+                }
+                if (p.X - 1 >= 0 && p.X - 1 < org.Width)
+                {
+                    if (org.GetPixel(p.X - 1, p.Y).R == 0)
+                    {
+                        lst.Add(new Point(p.X - 1, p.Y));
+                        org.SetPixel(p.X - 1, p.Y, Color.LightSlateGray);
+                    }
+                }
+                if (p.Y + 1 >= 0 && p.Y + 1 < org.Height)
+                {
+                    if (org.GetPixel(p.X, p.Y + 1).R == 0)
+                    {
+                        lst.Add(new Point(p.X, p.Y + 1));
+                        org.SetPixel(p.X, p.Y + 1, Color.LightSlateGray);
+                    }
+                }
+                if (p.Y - 1 >= 0 && p.Y - 1 < org.Width)
+                {
+                    if (org.GetPixel(p.X, p.Y - 1).R == 0)
+                    {
+                        lst.Add(new Point(p.X, p.Y - 1));
+                        org.SetPixel(p.X, p.Y - 1, Color.LightSlateGray);
+                    }
+                }
+
+            }
+
+            //            pc_class.Image = org;
+
+            //get_edge();
+        }
+        public void classter(int x,int y,Bitmap org )
+        {
+            List<Point> lst = new List<Point>();
+            lst.Add(new Point(x, y));
+            while (lst.Count != 0)
+            {
+                Point p = lst[0];
+                lst.RemoveAt(0);
+
+              
+                org.SetPixel(p.X, p.Y, Color.LightSlateGray);
                 if (p.X + 1 >= 0 && p.X + 1 < org.Width)
                 {
                     if (org.GetPixel(p.X + 1, p.Y).R == 255)
                     {
                         lst.Add(new Point(p.X + 1, p.Y));
-                        org.SetPixel(p.X + 1, p.Y, Color.LightBlue);
+                        org.SetPixel(p.X + 1, p.Y, Color.LightSlateGray);
                     }
                 }
                 if (p.X - 1 >= 0 && p.X - 1 < org.Width)
@@ -829,7 +1131,7 @@ namespace DicomImageViewer
                     if (org.GetPixel(p.X - 1, p.Y).R == 255)
                     {
                         lst.Add(new Point(p.X - 1, p.Y));
-                        org.SetPixel(p.X - 1, p.Y, Color.LightBlue);
+                        org.SetPixel(p.X - 1, p.Y, Color.LightSlateGray);
                     }
                 }
                 if (p.Y + 1 >= 0 && p.Y + 1 < org.Height)
@@ -837,7 +1139,7 @@ namespace DicomImageViewer
                     if (org.GetPixel(p.X, p.Y + 1).R == 255)
                     {
                         lst.Add(new Point(p.X, p.Y + 1));
-                        org.SetPixel(p.X, p.Y + 1, Color.LightBlue);
+                        org.SetPixel(p.X, p.Y + 1, Color.LightSlateGray);
                     }
                 }
                 if (p.Y - 1 >= 0 && p.Y - 1 < org.Width)
@@ -845,16 +1147,17 @@ namespace DicomImageViewer
                     if (org.GetPixel(p.X, p.Y - 1).R == 255)
                     {
                         lst.Add(new Point(p.X, p.Y - 1));
-                        org.SetPixel(p.X, p.Y - 1, Color.LightBlue);
+                        org.SetPixel(p.X, p.Y - 1, Color.LightSlateGray);
                     }
                 }
 
             }
 
-            pc_class.Image = org;
+//            pc_class.Image = org;
 
             //get_edge();
         }
+
         public void saveInputModel( )
         {
 
@@ -870,6 +1173,7 @@ namespace DicomImageViewer
                 int maxX = nr.maxX(lst) - nr.minX(lst);
                 int maxY = nr.maxY(lst) - nr.minY(lst);
                 int[,] arr = new int[60, 60];
+
                 for (int i = 0; i < lst.Count; i++)
                 {
 
