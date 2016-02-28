@@ -782,7 +782,7 @@ namespace DicomImageViewer
             //org = getLungCanter(org.Width-1, 0, new Bitmap(org));
             //org = getLungCanter(org.Width-1, org.Height-1, new Bitmap(org));
             Bitmap org = getLungCanter(0, 0,new Bitmap( pcOstu.Image));
-            pcBoNen.Image = org;
+            
            
            // int color = org.GetPixel(0, org.Width).R;
            // denoise_step3();
@@ -821,8 +821,7 @@ namespace DicomImageViewer
                 else
                     if (org.GetPixel(i, org.Height - 1).R == 255)
                         classter(i, org.Height - 1, org);
-            pc_class.Image = org;
-            
+            pcBoNen.Image = org;
 //            classter(org.Width-1, org.Height-1);
        //     classter(0, org.Height-1);
         //    classter(org.Width-1, 0);
@@ -1161,7 +1160,7 @@ namespace DicomImageViewer
         public void saveInputModel( )
         {
 
-            Bitmap pmb = new Bitmap(pc_class.Width, pc_class.Height);
+            Bitmap pmb = new Bitmap(pcBoNen.Width, pcBoNen.Height);
             neron nr = new neron();
             nr.readfromfile2();
             List<int[,]> lstarray = new List<int[,]>();
@@ -1212,21 +1211,23 @@ namespace DicomImageViewer
                 return;
             }
             List<bool> lstResult = new List<bool>();
-            foreach (var item in filename)
+            for (int i = 0; i < filename.Length; i++)
             {
                 modelNeuron model = new modelNeuron();
-                bool result = model.testmachine( item);
+                bool result = model.testmachine(filename[i].ToString());
                 lstResult.Add(result);
             }
+            Bitmap bmpResult = imagePanelControl.getBitMap();
             for (int i = 0; i < lstResult.Count(); i++)
             {
                 if(lstResult[i]==true)
                 {
                     neron nr = new neron();
-                  Bitmap bmp =   nr.readfromfile2(imagePanelControl.getBitMap(), i);
-                    resultALL.Image = bmp;
+                    bmpResult = nr.readfromfile2(bmpResult, i);
+                    
                 }
             }
+            resultALL.Image = bmpResult;
         }
         private void bt_inputneuron_Click(object sender, EventArgs e)
         {

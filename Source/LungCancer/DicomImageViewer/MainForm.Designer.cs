@@ -49,17 +49,11 @@
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.tabPage5 = new System.Windows.Forms.TabPage();
             this.pcBoNen = new System.Windows.Forms.PictureBox();
-            this.pc_class = new System.Windows.Forms.PictureBox();
-            this.tabPage8 = new System.Windows.Forms.TabPage();
-            this.tabPage9 = new System.Windows.Forms.TabPage();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.tabPage10 = new System.Windows.Forms.TabPage();
             this.resultALL = new System.Windows.Forms.PictureBox();
             this.bt_inputneuron = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.tabPage4 = new System.Windows.Forms.TabPage();
-            this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.imagePanelControl = new DicomImageViewer.ImagePanelControl();
             this.windowLevelControl = new DicomImageViewer.WindowLevelGraphControl();
             this.gbViewSettings.SuspendLayout();
@@ -70,15 +64,9 @@
             this.tabPage2.SuspendLayout();
             this.tabPage5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pcBoNen)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pc_class)).BeginInit();
-            this.tabPage8.SuspendLayout();
-            this.tabPage9.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.tabPage10.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.resultALL)).BeginInit();
             this.panel1.SuspendLayout();
-            this.tabPage4.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             this.SuspendLayout();
             // 
             // bnOpen
@@ -254,10 +242,7 @@
             this.input_neuron.Controls.Add(this.tabPage1);
             this.input_neuron.Controls.Add(this.tabPage2);
             this.input_neuron.Controls.Add(this.tabPage5);
-            this.input_neuron.Controls.Add(this.tabPage8);
-            this.input_neuron.Controls.Add(this.tabPage9);
             this.input_neuron.Controls.Add(this.tabPage10);
-            this.input_neuron.Controls.Add(this.tabPage4);
             this.input_neuron.Location = new System.Drawing.Point(3, 3);
             this.input_neuron.Name = "input_neuron";
             this.input_neuron.SelectedIndex = 0;
@@ -310,52 +295,6 @@
             this.pcBoNen.TabIndex = 17;
             this.pcBoNen.TabStop = false;
             // 
-            // pc_class
-            // 
-            this.pc_class.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.pc_class.Location = new System.Drawing.Point(3, 3);
-            this.pc_class.Name = "pc_class";
-            this.pc_class.Size = new System.Drawing.Size(1036, 713);
-            this.pc_class.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pc_class.TabIndex = 19;
-            this.pc_class.TabStop = false;
-            // 
-            // tabPage8
-            // 
-            this.tabPage8.Controls.Add(this.pc_class);
-            this.tabPage8.Location = new System.Drawing.Point(4, 22);
-            this.tabPage8.Name = "tabPage8";
-            this.tabPage8.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage8.Size = new System.Drawing.Size(1071, 694);
-            this.tabPage8.TabIndex = 7;
-            this.tabPage8.Text = "Phân lớp ảnh";
-            this.tabPage8.UseVisualStyleBackColor = true;
-            // 
-            // tabPage9
-            // 
-            this.tabPage9.Controls.Add(this.pictureBox2);
-            this.tabPage9.Location = new System.Drawing.Point(4, 22);
-            this.tabPage9.Name = "tabPage9";
-            this.tabPage9.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage9.Size = new System.Drawing.Size(1071, 694);
-            this.tabPage9.TabIndex = 8;
-            this.tabPage9.Text = "tabPage9";
-            this.tabPage9.UseVisualStyleBackColor = true;
-            // 
-            // pictureBox2
-            // 
-            this.pictureBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.pictureBox2.Location = new System.Drawing.Point(3, 3);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(1036, 713);
-            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
-            this.pictureBox2.TabIndex = 20;
-            this.pictureBox2.TabStop = false;
-            // 
             // tabPage10
             // 
             this.tabPage10.Controls.Add(this.resultALL);
@@ -364,7 +303,7 @@
             this.tabPage10.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage10.Size = new System.Drawing.Size(1071, 694);
             this.tabPage10.TabIndex = 9;
-            this.tabPage10.Text = "tabPage10";
+            this.tabPage10.Text = "Kết quả";
             this.tabPage10.UseVisualStyleBackColor = true;
             // 
             // resultALL
@@ -375,7 +314,7 @@
             this.resultALL.Location = new System.Drawing.Point(3, 3);
             this.resultALL.Name = "resultALL";
             this.resultALL.Size = new System.Drawing.Size(1036, 713);
-            this.resultALL.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.resultALL.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.resultALL.TabIndex = 21;
             this.resultALL.TabStop = false;
             // 
@@ -406,27 +345,6 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1098, 726);
             this.panel1.TabIndex = 25;
-            // 
-            // tabPage4
-            // 
-            this.tabPage4.Controls.Add(this.pictureBox3);
-            this.tabPage4.Location = new System.Drawing.Point(4, 22);
-            this.tabPage4.Name = "tabPage4";
-            this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(1071, 694);
-            this.tabPage4.TabIndex = 10;
-            this.tabPage4.Text = "tabPage4";
-            this.tabPage4.UseVisualStyleBackColor = true;
-            // 
-            // pictureBox3
-            // 
-            this.pictureBox3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBox3.Location = new System.Drawing.Point(3, 3);
-            this.pictureBox3.Name = "pictureBox3";
-            this.pictureBox3.Size = new System.Drawing.Size(1065, 688);
-            this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox3.TabIndex = 22;
-            this.pictureBox3.TabStop = false;
             // 
             // imagePanelControl
             // 
@@ -483,15 +401,9 @@
             this.tabPage2.ResumeLayout(false);
             this.tabPage5.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pcBoNen)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pc_class)).EndInit();
-            this.tabPage8.ResumeLayout(false);
-            this.tabPage9.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.tabPage10.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.resultALL)).EndInit();
             this.panel1.ResumeLayout(false);
-            this.tabPage4.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -522,17 +434,11 @@
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.TabPage tabPage5;
         private System.Windows.Forms.PictureBox pcBoNen;
-        private System.Windows.Forms.TabPage tabPage8;
-        private System.Windows.Forms.PictureBox pc_class;
-        private System.Windows.Forms.TabPage tabPage9;
-        private System.Windows.Forms.PictureBox pictureBox2;
         private System.Windows.Forms.Button bt_inputneuron;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.TabPage tabPage10;
         private System.Windows.Forms.PictureBox resultALL;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.TabPage tabPage4;
-        private System.Windows.Forms.PictureBox pictureBox3;
     }
 }
 

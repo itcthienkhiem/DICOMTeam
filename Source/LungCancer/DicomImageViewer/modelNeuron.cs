@@ -126,7 +126,7 @@ namespace DicomImageViewer
             double[] bestWeights = DicomImageViewer.Common.readonfile("bestWeights.txt");
 
 
-            ShowVector(bestWeights);
+       //     ShowVector(bestWeights);
             
             double totalError = TotalError( bestWeights, bestBias);
             
@@ -138,7 +138,8 @@ namespace DicomImageViewer
             List<int> unknown = readafile(path); // damaged 'B' in 2 positions
 
             int prediction = Predict(unknown, bestWeights, bestBias);  // perform the classification
-            return (prediction == 0); 
+            if (prediction == 0)return false;
+            else return true;
         }
         public  int Predict(List <int> dataVector, double[] bestWeights, double bestBias)
         {
