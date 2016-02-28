@@ -49,9 +49,9 @@ namespace DicomImageViewer
         /// </summary>
         /// <param name="item"></param>
         /// <returns></returns>
-        public List<int> readafile(string item)
+        public List<double> readafile(string item)
         {
-            List<int> lstarray = new List<int>();
+            List<double> lstarray = new List<double>();
             Bitmap img = (Bitmap)Image.FromFile(item);
             if (img != null)
             {
@@ -135,13 +135,13 @@ namespace DicomImageViewer
             //Console.WriteLine("\nPredicting is a '1' or '3' (yes = 1, no = 0) for the following pattern:\n");
             //ShowData(dataVector);
 
-            List<int> unknown = readafile(path); // damaged 'B' in 2 positions
+            List<double> unknown = readafile(path); // damaged 'B' in 2 positions
 
-            int prediction = Predict(unknown, bestWeights, bestBias);  // perform the classification
+            double prediction = Predict(unknown, bestWeights, bestBias);  // perform the classification
             if (prediction == 0)return false;
             else return true;
         }
-        public  int Predict(List <int> dataVector, double[] bestWeights, double bestBias)
+        public  int Predict(List <double> dataVector, double[] bestWeights, double bestBias)
         {
             double dotP = 0.0;
             for (int j = 0; j < dataVector.Count; ++j)  // all bits
