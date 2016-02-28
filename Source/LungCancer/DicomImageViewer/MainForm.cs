@@ -571,7 +571,8 @@ namespace DicomImageViewer
             //deNoise();
            
             getLung();
-           
+            saveInputModel();
+            testALL();
          //   neron nr = new neron();
 
         //    pictureBox3.Image = nr.readfromfile2((Bitmap)pc_class.Image, 0);
@@ -1171,6 +1172,11 @@ namespace DicomImageViewer
                 lst = nr.getAlllablesegment(t);
                 int maxX = nr.maxX(lst) - nr.minX(lst);
                 int maxY = nr.maxY(lst) - nr.minY(lst);
+                if (maxX >= 60 || maxY >= 60)
+                {
+                    MessageBox.Show("Dữ liệu nhận dạng chứa ảnh có kích thước lớn 60*60, vui lòng chọn ảnh khác!");
+                    return;
+                }
                 int[,] arr = new int[60, 60];
 
                 for (int i = 0; i < lst.Count; i++)
@@ -1232,12 +1238,12 @@ namespace DicomImageViewer
         }
         private void bt_inputneuron_Click(object sender, EventArgs e)
         {
-            saveInputModel();
+           
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            testALL();
+            
 
         }
     }

@@ -51,8 +51,6 @@
             this.pcBoNen = new System.Windows.Forms.PictureBox();
             this.tabPage10 = new System.Windows.Forms.TabPage();
             this.resultALL = new System.Windows.Forms.PictureBox();
-            this.bt_inputneuron = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.imagePanelControl = new DicomImageViewer.ImagePanelControl();
             this.windowLevelControl = new DicomImageViewer.WindowLevelGraphControl();
@@ -201,7 +199,7 @@
             this.OtsuThreshold.Name = "OtsuThreshold";
             this.OtsuThreshold.Size = new System.Drawing.Size(75, 23);
             this.OtsuThreshold.TabIndex = 15;
-            this.OtsuThreshold.Text = "OtsuThreshold";
+            this.OtsuThreshold.Text = "Progress";
             this.OtsuThreshold.UseVisualStyleBackColor = true;
             this.OtsuThreshold.Click += new System.EventHandler(this.button1_Click);
             // 
@@ -269,7 +267,7 @@
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage2.Size = new System.Drawing.Size(1071, 694);
             this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "Nhị phân hóa";
+            this.tabPage2.Text = "Binary: Nhị phân hóa";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
             // tabPage5
@@ -280,7 +278,7 @@
             this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage5.Size = new System.Drawing.Size(1071, 694);
             this.tabPage5.TabIndex = 4;
-            this.tabPage5.Text = "Tách phổi";
+            this.tabPage5.Text = "Lung Segment: Tách phổi";
             this.tabPage5.UseVisualStyleBackColor = true;
             // 
             // pcBoNen
@@ -303,7 +301,7 @@
             this.tabPage10.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage10.Size = new System.Drawing.Size(1071, 694);
             this.tabPage10.TabIndex = 9;
-            this.tabPage10.Text = "Kết quả";
+            this.tabPage10.Text = "Result: Kết quả";
             this.tabPage10.UseVisualStyleBackColor = true;
             // 
             // resultALL
@@ -317,26 +315,6 @@
             this.resultALL.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.resultALL.TabIndex = 21;
             this.resultALL.TabStop = false;
-            // 
-            // bt_inputneuron
-            // 
-            this.bt_inputneuron.Location = new System.Drawing.Point(77, 618);
-            this.bt_inputneuron.Name = "bt_inputneuron";
-            this.bt_inputneuron.Size = new System.Drawing.Size(75, 23);
-            this.bt_inputneuron.TabIndex = 21;
-            this.bt_inputneuron.Text = "button2";
-            this.bt_inputneuron.UseVisualStyleBackColor = true;
-            this.bt_inputneuron.Click += new System.EventHandler(this.bt_inputneuron_Click);
-            // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(15, 632);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 24;
-            this.button2.Text = "button2";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // panel1
             // 
@@ -370,8 +348,6 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1264, 733);
             this.Controls.Add(this.panel1);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.bt_inputneuron);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.textBox3);
             this.Controls.Add(this.OtsuThreshold);
@@ -434,8 +410,6 @@
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.TabPage tabPage5;
         private System.Windows.Forms.PictureBox pcBoNen;
-        private System.Windows.Forms.Button bt_inputneuron;
-        private System.Windows.Forms.Button button2;
         private System.Windows.Forms.TabPage tabPage10;
         private System.Windows.Forms.PictureBox resultALL;
         private System.Windows.Forms.Panel panel1;
